@@ -247,7 +247,7 @@ module Rfm
           #@value_lists[name] = valuelist.elements.collect {|e| e.text}
           @value_lists[name] = valuelist.children.collect{|value|
           	Rfm::Metadata::ValueListItem.new(value.children[0].to_s, value['DISPLAY'], name)
-          }
+          } rescue []
         }
         @value_lists.freeze
       end

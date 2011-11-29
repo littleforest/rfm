@@ -14,6 +14,8 @@ module Metadata
   # * *value_list_name* is the name of the parent value list, if any
   class ValueListItem < String
     def initialize(value, display, value_list_name)
+    	value            = value.to_s
+    	display          = display.to_s
       @value_list_name = value_list_name
       @value					 = value
       @display				 = display

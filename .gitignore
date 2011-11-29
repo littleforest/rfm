@@ -1,7 +1,11 @@
 *.sw?
 .DS_Store
 .document
+.yardoc
 local_testing
 coverage
 rdoc
 pkg
+*.gem
+*.bak
+*.md.html
