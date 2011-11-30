@@ -14,7 +14,7 @@ Other lead contributors:
 Documentation & Links
 
 * Homepage:       <http://sixfriedrice.com/wp/products/rfm/>
-* Rdoc location:  <http://rubydoc.info/gems/ginjo-rfm/1.4.4/frames>
+* Rdoc location:  <http://rubydoc.info/github/ginjo/rfm/frames>
 * Discussion:     <http://groups.google.com/group/rfmcommunity>
 * Ginjo-rfm       <https://github.com/ginjo/rfm>
 * Lardawge-rfm    <https://github.com/lardawge/rfm>
