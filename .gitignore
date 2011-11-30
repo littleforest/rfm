@@ -4,7 +4,7 @@
 .yardoc
 local_testing
 coverage
-rdoc
+*doc
 pkg
 *.gem
 *.bak

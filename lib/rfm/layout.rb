@@ -228,23 +228,17 @@ module Rfm
     	require 'nokogiri'
     	
       @loaded = true
-      #fmpxmllayout = @db.server.load_layout(self).body
       fmpxmllayout = @db.server.load_layout(self)
-      #doc = REXML::Document.new(fmpxmllayout)
       doc = Nokogiri::XML(fmpxmllayout)
-      #root = doc.root
       
       # check for errors
-      #error = root.elements['ERRORCODE'].text.to_i
       error = doc.xpath('//ERRORCODE').children[0].to_s.to_i
       raise Rfm::Error::FileMakerError.getError(error) if error != 0
       
       # process valuelists
-      if doc.xpath('//VALUELIST').size > 0    #root.elements['VALUELISTS'].size > 0
-        #root.elements['VALUELISTS'].each_element('VALUELIST') { |valuelist|
+      if doc.xpath('//VALUELIST').size > 0
         doc.xpath('//VALUELIST').each {|valuelist|
           name = valuelist['NAME']
-          #@value_lists[name] = valuelist.elements.collect {|e| e.text}
           @value_lists[name] = valuelist.children.collect{|value|
           	Rfm::Metadata::ValueListItem.new(value.children[0].to_s, value['DISPLAY'], name)
           } rescue []
@@ -253,14 +247,10 @@ module Rfm
       end
 
       # process field controls
-      #root.elements['LAYOUT'].each_element('FIELD') { |field|
       doc.xpath('//FIELD').each {|field|
-        #name = field.attributes['NAME']
         name = field['NAME']
         style_xml = field.children[0]
-        #style = field.elements['STYLE'].attributes['TYPE']
         style = style_xml['TYPE']
-        #value_list_name = field.elements['STYLE'].attributes['VALUELIST']
         value_list_name = style_xml['VALUELIST']
         value_list = @value_lists[value_list_name] if value_list_name != ''
         field_control = Rfm::Metadata::FieldControl.new(name, style, value_list_name, value_list)

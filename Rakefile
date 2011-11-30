@@ -13,10 +13,14 @@ begin
     gem.authors = ["Geoff Coffey", "Mufaddal Khumri", "Atsushi Matsuo", "Larry Sprock", "Bill Richardson"]
     gem.files = FileList['lib/**/*']
     gem.add_dependency('nokogiri')
-    gem.rdoc_options = [ "--line-numbers", "--main", "README.rdoc" ]
+    gem.add_development_dependency('jeweler')
+    gem.add_development_dependency('rake')
+    gem.add_development_dependency('rdoc')
+    gem.add_development_dependency('yard')
+    gem.add_development_dependency('rspec', '~>1.3.0')
+    gem.rdoc_options = [ "--line-numbers", "--main", "README.md" ]
     gem.version = Rfm::VERSION
   end
-  #Jeweler::GemcutterTasks.new
   Jeweler::RubygemsDotOrgTasks.new
 rescue LoadError
   puts "Jeweler (or a dependency) not available. Install it with: sudo gem install jeweler"
@@ -38,21 +42,20 @@ task :default => :spec
 
 require 'rdoc/task'
 Rake::RDocTask.new do |rdoc|
-  if File.exist?('VERSION.yml')
-    config = YAML.load(File.read('VERSION.yml'))
-    version = "#{config[:major]}.#{config[:minor]}.#{config[:patch]}"
-  elsif (Rfm::VERSION rescue nil)
-  	version = Rfm::VERSION
-  elsif File.exist?('VERSION')
-    version = File.read('VERSION')
-  else
-  	version = ""
-  end
-
+	version = Rfm::VERSION
+	rdoc.main = 'README.md'
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "rfm #{version}"
-  rdoc.rdoc_files.include('README*')
-  rdoc.rdoc_files.include('lib/**/*.rb')
+  rdoc.title = "Rfm #{version}"
+  rdoc.rdoc_files.include('lib/**/*.rb', 'README*', 'CHANGELOG', 'VERSION', 'LICENSE')
+end
+
+require 'yard'
+require 'rdoc'
+YARD::Rake::YardocTask.new do |t|
+	# See http://rubydoc.info/docs/yard/file/docs/GettingStarted.md
+	# See 'yardoc --help'
+  t.files   = ['lib/**/*.rb', 'README', 'LICENSE', 'VERSION', 'CHANGELOG']   # optional
+  t.options = ['-oydoc', '--no-cache', '-mrdoc', '--no-private'] # optional
 end
 
 

@@ -227,7 +227,6 @@ module Rfm
         return read_attribute(method) if self.key?(method)
       
         if method =~ /(=)$/ && self.key?($`)
-          #return @mods[$`] = attrs.first
           return self[$`] = attrs.first
         end
         super

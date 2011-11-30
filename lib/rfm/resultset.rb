@@ -8,7 +8,6 @@
 require 'nokogiri'
 require 'bigdecimal'
 require 'rfm/record'
-#require 'rfm/metadata/field'
 
 module Rfm
 

@@ -138,7 +138,7 @@ module Rfm
     #   ignores FileMaker's 401 error (no records found) and returns an empty record set instead; if you
     #   prefer a raised error when a find produces no errors, set this option to +true+
     #
-    #SSL Options (SSL AND CERTIFICATE VERIFICATION ARE ON BY DEFAULT):
+    # ===SSL Options (SSL AND CERTIFICATE VERIFICATION ARE ON BY DEFAULT):
     #
     # * *ssl* +false+ if you want to turn SSL (HTTPS) off when connecting to connect to FileMaker (default is +true+)
     #
@@ -154,7 +154,7 @@ module Rfm
     #
     # * *root_cert_path* path to cert file. (defaults to '/' if no path given)
     #
-    #Configuration Examples:    
+    # ===Configuration Examples:    
     #
     # Example to turn off SSL:
     # 

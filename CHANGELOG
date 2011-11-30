@@ -1,8 +1,18 @@
+*Ginjo-Rfm 1.4.4
+
+  Fixed creation of empty value list.
+  
+  Additional fixes for Rfm::VERSION.
+  
+  Other minor fixes and cleanup.
+  
+  Documentation cleanup.
+
 *Ginjo-Rfm 1.4.3
 
 	Fixed version management issue. Rfm::VERSION now works.
 
-*Ginjo-Rfm 1.4.2*
+*Ginjo-Rfm 1.4.2
 
 *	Re-implemented:
 	
