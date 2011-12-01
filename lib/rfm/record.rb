@@ -216,9 +216,9 @@ module Rfm
     private
 
       def read_attribute(key)
-      	key = key.to_s
+      	key_string = key.to_s
         raise NoMethodError, 
-          "#{key.to_s} does not exists as a field in the current Filemaker layout." unless (!@layout or self.key?(key))
+          "#{key_string} does not exists as a field in the current Filemaker layout." unless (!@layout or self.keys.grep(/#{key_string}/i).empty?))
         self._old_hash_reader(key).to_s.empty? ? nil : self._old_hash_reader(key) if self._old_hash_reader(key)
       end
 
