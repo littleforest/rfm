@@ -4,6 +4,8 @@
   
   Additional fixes for Rfm::VERSION.
   
+  Fixed Record getter/setter case issue.
+  
   Other minor fixes and cleanup.
   
   Documentation cleanup.

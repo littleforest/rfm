@@ -121,6 +121,12 @@ describe Rfm::Record do
 	  	@layout.stub!(:edit).with(1, @mods).and_return([@mods])
     end
     
+    it "passes mods to Layout::edit" do
+    	@record.name = 'green'
+    	@layout.should_receive(:edit).with(1, {'name'=>'green'})
+    	@record.save
+    end
+    
     it "returns empty hash" do
 	  		@record.name = 'green'
   			@record.save.should eql({})
