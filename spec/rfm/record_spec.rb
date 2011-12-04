@@ -148,6 +148,54 @@ describe Rfm::Record do
   		end
   	end
   	
-  end
+  end #save
   
-end
+  describe "#save_if_not_modified" do
+  	before(:each) do
+  		@record['name'] = 'red'
+			@record.instance_variable_set(:@record_id, 1)
+			@record.instance_variable_set(:@loaded, true)
+			@record.instance_variable_set :@mod_id, 5
+			@record.instance_variable_set(:@layout, @layout)
+			@mods = @record.instance_variable_set(:@mods, {})	
+			@layout.stub!(:edit).and_return{[@mods]}
+		end
+		
+		context "when local record not modified" do
+			it "leaves self untouched and returns {}" do
+				original = @record.dup
+				@record.save_if_not_modified.should eql({})
+				@record.should eql(original)
+			end
+		end
+		
+		context "when local record modified" do
+			it "passes @mods and @mod_id to layout" do
+	    	@record.name = 'green'
+	    	@layout.should_receive(:edit).with(1, {'name'=>'green'}, {:modification_id => 5})
+	    	@record.save_if_not_modified
+ 			end
+ 			
+ 			it "merges returned hash from Layout#edit" do
+ 				@record.name = 'blue'
+ 				@mods['name'] = 'green'
+ 				@record.save_if_not_modified
+ 				@record['name'].should eql('green')
+ 			end
+ 			
+ 			it "clears @mods" do
+ 				@record.name = 'green'
+ 				@record.save_if_not_modified
+ 				@record.instance_variable_get(:@mods).should eql({})
+ 			end
+ 			
+ 			it "returns {}" do
+ 				@record.name = 'green'
+ 				@record.save_if_not_modified.should eql({})
+ 			end
+		end
+		
+  end #save_if_not_modified
+  
+  
+end #Rfm::Record

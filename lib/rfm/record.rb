@@ -168,10 +168,6 @@ module Rfm
       @mods.clear
     end
     
-    def field_meta
-    	{:future=>'feature'}
-  	end
-    	
 
     # Like Record::save, except it fails (and raises an error) if the underlying record in FileMaker was
     # modified after the record was fetched but before it was saved. In other words, prevents you from

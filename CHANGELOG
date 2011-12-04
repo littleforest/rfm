@@ -1,10 +1,10 @@
 *Ginjo-Rfm 1.4.4
 
-  Fixed creation of empty value list.
+  Fixed bug when creating empty value list.
   
   Additional fixes for Rfm::VERSION.
   
-  Fixed Record getter/setter case issue.
+  Fixed Record getter/setter issue.
   
   Other minor fixes and cleanup.
   
