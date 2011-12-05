@@ -221,7 +221,7 @@ module Rfm
       @value_lists
     end
     
-    private
+  private
     
     def load
     	#require 'rexml/document'

@@ -1,35 +1,31 @@
 require 'rfm/resultset'
-require 'yaml'
+#require 'yaml'
 
 describe Rfm::Resultset do
-  
-  describe "#initialize" do
-  	before do
-		  @server = Rfm::Server.allocate
-		  def @server.state; {}; end
-			@layout = Rfm::Layout.allocate
-			@data = File.read("spec/data/resultset.xml")
-			### records, result, field_meta, layout, portal
-			Rfm::Record.instance_eval{def build_records(*args); args[1].instance_variable_set(:@build_records, args); end}  
-			@resultset = Rfm::Resultset.new(@server, @data, @layout)
-			@args = @resultset.instance_variable_get(:@build_records)
-  	end
-  
-	  it "loads and parses xml response upon initialization" do
-			@args.should_not eql(nil)
+  let(:server) {mock(Rfm::Server)}
+  let(:layout) {mock(Rfm::Layout)}
+  let(:data)   {File.read("spec/data/resultset.xml")}
+  subject      {Rfm::Resultset.new(server, data, layout)}
+  before(:each) do
+  	server.stub!(:state).and_return({})
+  end
+
+	describe "#initialze" do
+		it "calls build_records with record-xml, resultset-obj, field-meta, layout" do
+			Rfm::Record.should_receive(:build_records) do  |rec,rsl,fld,lay|        #|record_xml, resultset, field_meta, layout|
+				rec.size.should == 2
+				rsl.foundset_count.should == 2
+				fld.keys[0].should == 'memokeymaster'
+				lay.should == layout
+			end
+			subject
 		end
-		
-		it "sends field_meta to Record.build_records" do
-			@args[2][:memokeymaster].class.should eql(Rfm::Metadata::Field)
+	
+		atrs = [:layout, :server, :field_meta, :portal_meta, :date_format, :time_format, :timestamp_format, :total_count, :foundset_count]
+		atrs.each do |atr|
+			its(atr) {should_not eql(nil)}
 		end
-		
-		it "sends layout to Record.build_records" do
-			@args[3].class.should eql(Rfm::Layout)
-		end
-		
-		it "sends records xml to Record.build_records" do
-			@args[0].xpath("//record[2]/field[@name='MemoText']/data/text()").to_s.should eql('memotest7')
-		end
-		
-	end	
-end
+	
+	end # initialize
+
+end # Rfm::Resultset
