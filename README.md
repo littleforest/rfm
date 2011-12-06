@@ -50,7 +50,7 @@ Once the gem is installed, you can use rfm in your ruby scripts by requiring it:
     require 'rubygems'
     require 'rfm'
 
-### In Rails >= 3.0
+### In Rails >= 3.0, or any project using Bundler
 
 In the Gemfile:
 
@@ -77,7 +77,7 @@ Multiple backend xml parsers.
     Rfm::Server.new(:backend => :nokogiri)
     # Backend options => :libxml, :libxmlsax, :nokogiri, :nokogirisax, :hpricot, :rexml
     
-Try it out:
+Try out these unreleased features in the edge branch.
 
     #gemfile
     gem 'ginjo-rfm', :git=>'git://github.com/ginjo/rfm.git', :branch=>'edge'
