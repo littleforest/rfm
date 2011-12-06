@@ -21,10 +21,14 @@ describe Rfm::Resultset do
 			subject
 		end
 	
-		atrs = [:layout, :server, :field_meta, :portal_meta, :date_format, :time_format, :timestamp_format, :total_count, :foundset_count]
-		atrs.each do |atr|
-			its(atr) {should_not eql(nil)}
+		it "sets instance variables to non-nil" do
+			atrs = [:layout, :server, :field_meta, :portal_meta, :date_format, :time_format, :timestamp_format, :total_count, :foundset_count]
+			atrs.each {|atr| subject.send(atr).should_not eql(nil)}
 		end
+		# 		atrs = [:layout, :server, :field_meta, :portal_meta, :date_format, :time_format, :timestamp_format, :total_count, :foundset_count]
+		# 		atrs.each do |atr|
+		# 			its(atr) {should_not eql(nil)}
+		# 		end
 	
 	end # initialize
 
