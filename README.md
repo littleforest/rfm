@@ -13,11 +13,12 @@ Other lead contributors:
 
 Documentation & Links
 
-* Homepage:       <http://sixfriedrice.com/wp/products/rfm/>
-* Rdoc location:  <http://rubydoc.info/github/ginjo/rfm/frames>
-* Discussion:     <http://groups.google.com/group/rfmcommunity>
-* Ginjo-rfm       <https://github.com/ginjo/rfm>
-* Lardawge-rfm    <https://github.com/lardawge/rfm>
+* Ginjo-rfm homepage: <https://rubygems.org/gems/ginjo-rfm>
+* Original homepage:  <http://sixfriedrice.com/wp/products/rfm/>
+* Rdoc location:      <http://rubydoc.info/github/ginjo/rfm/frames>
+* Discussion:         <http://groups.google.com/group/rfmcommunity>
+* Ginjo-rfm           <https://github.com/ginjo/rfm>
+* Lardawge-rfm        <https://github.com/lardawge/rfm>
 
 Partial list of features added since rfm 1.0.0.
 
