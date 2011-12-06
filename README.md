@@ -1,6 +1,6 @@
 # ginjo-rfm
 
-Rfm is a Ruby/Filemaker adapter - a ruby gem that allows scripts and applications to exchange commands and data with Filemaker Pro using Filemaker's XML interface. Ginjo-rfm picks up from the lardawge-rfm gem and continues to refine code and fix bugs. It also adds minor enhancements like server timeout and value-list alternate display. To read more about Rfm, see the info at [Sixfriedrice](http://sixfriedrice.com/wp/products/rfm/), or check out the [RDoc](http://rubydoc.info/gems/lardawge-rfm/1.4.1.2/frames) courtesey of Larry Sprock.
+Rfm is a Ruby/Filemaker adapter - a ruby gem that allows scripts and applications to exchange commands and data with Filemaker Pro using Filemaker's XML interface. Ginjo-rfm picks up from the lardawge-rfm gem and continues to refine code and fix bugs. It also adds minor enhancements like server timeout and value-list alternate display. To read more about Rfm, see the info at [Sixfriedrice](http://sixfriedrice.com/wp/products/rfm/), or check out the [RDoc](http://rubydoc.info/github/ginjo/rfm/master/frames).
 
 Rfm was primarily designed by Six Fried Rice co-founder Geoff Coffey.
 
@@ -9,7 +9,7 @@ Other lead contributors:
 * Mufaddal Khumri helped architect Rfm in the most ruby-like way possible. He also contributed the outstanding error handling code and a comprehensive hierarchy of error classes.
 * Atsushi Matsuo was an early Rfm tester, and provided outstanding feedback, critical code fixes, and a lot of web exposure.
 * Jesse Antunes helped ensure that Rfm is stable and functional.
-* Larry Sprock added ssl support and switched the xml parser to a much faster Nokogiri.
+* Larry Sprock added ssl support, switched the xml parser to a much faster Nokogiri, added the rspec testing framework, and refactored the code to pave way for future development.
 
 Documentation & Links
 
