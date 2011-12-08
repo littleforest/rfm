@@ -20,6 +20,9 @@ begin
     gem.add_development_dependency('rspec', '~>1.3.0')
     gem.rdoc_options = [ "--line-numbers", "--main", "README.md" ]
     gem.version = Rfm::VERSION
+    
+    desc "Gemspec is now permanent - do not overwrite with Jeweler"
+		task :release do; end
   end
   Jeweler::RubygemsDotOrgTasks.new
 rescue LoadError
