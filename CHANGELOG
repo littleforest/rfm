@@ -1,3 +1,15 @@
+*Ginjo-Rfm 2.0.pre
+
+  Alternative XML parsers using ActiveSupport::XmlMini interface
+  
+  ActiveModel compatibility brings to goodness of ActiveRecord models to Rfm
+  
+  Complex queries with Layout#query method
+  
+  Configuration API manages settings of multiple server/db/layout/etc setups
+  
+  Full Filemaker metadata support
+
 *Ginjo-Rfm 1.4.4
 
   Fixed bug when creating empty value list.

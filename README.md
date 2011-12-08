@@ -33,6 +33,7 @@ Partial roadmap to the future
 * ActiveModel compatibility
 * Alternative XML parsers
 * Complex Filemaker queries
+* Configuration API
 * More tests
 
 
@@ -74,7 +75,7 @@ ActiveModel support.
     
 Multiple backend xml parsers.
 
-    Rfm::Server.new(:backend => :nokogiri)
+    Rfm::Server.new(:parser => :nokogiri)
     # Backend options => :libxml, :libxmlsax, :nokogiri, :nokogirisax, :hpricot, :rexml
     
 Try out these unreleased features in the edge branch.
@@ -145,7 +146,6 @@ Once you have a layout object, you can start doing some real work. To get every 
 
 To get a random record:
 
-    ruby
     my_layout.any
 
 To find every record with "Arizona" in the "State" field:

@@ -9,7 +9,7 @@ begin
     gem.summary = "Ruby to Filemaker adapter"
     gem.description = "Rfm brings your FileMaker data to Ruby. Now your Ruby scripts and Rails applications can talk directly to your FileMaker server."
     gem.email = "http://groups.google.com/group/rfmcommunity"
-    gem.homepage = "http://sixfriedrice.com/wp/products/rfm/"
+    gem.homepage = "https://rubygems.org/gems/ginjo-rfm"
     gem.authors = ["Geoff Coffey", "Mufaddal Khumri", "Atsushi Matsuo", "Larry Sprock", "Bill Richardson"]
     gem.files = FileList['lib/**/*']
     gem.add_dependency('nokogiri')
@@ -46,7 +46,7 @@ Rake::RDocTask.new do |rdoc|
 	rdoc.main = 'README.md'
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title = "Rfm #{version}"
-  rdoc.rdoc_files.include('lib/**/*.rb', 'README*', 'CHANGELOG', 'VERSION', 'LICENSE')
+  rdoc.rdoc_files.include('lib/**/*.rb', 'README*', 'CHANGELOG', 'lib/rfm/VERSION', 'LICENSE')
 end
 
 require 'yard'
@@ -54,7 +54,7 @@ require 'rdoc'
 YARD::Rake::YardocTask.new do |t|
 	# See http://rubydoc.info/docs/yard/file/docs/GettingStarted.md
 	# See 'yardoc --help'
-  t.files   = ['lib/**/*.rb', 'README', 'LICENSE', 'VERSION', 'CHANGELOG']   # optional
+  t.files   = ['lib/**/*.rb', 'README', 'LICENSE', 'lib/rfm/VERSION', 'CHANGELOG']  # optional
   t.options = ['-oydoc', '--no-cache', '-mrdoc', '--no-private'] # optional
 end
 
