@@ -61,6 +61,7 @@ In the Gemfile:
 
 ActiveModel support.
     
+		# Unreleased feature - does not work in v1.4.x
     class Account < Rfm::Base
       config :layout=>'account_xml'
       before_create :encrypt_password
@@ -75,6 +76,7 @@ ActiveModel support.
     
 Multiple backend xml parsers.
 
+		# Unreleased feature - does not work in v1.4.x
     Rfm::Server.new(:parser => :nokogiri)
     # Backend options => :libxml, :libxmlsax, :nokogiri, :nokogirisax, :hpricot, :rexml
     
