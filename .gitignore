@@ -9,3 +9,5 @@ pkg
 *.gem
 *.bak
 *.md.html
+Gemfile
+Gemfile.lock
