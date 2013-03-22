@@ -1,5 +1,11 @@
 # Changelog
 
+## Ginjo-Rfm 2.1.1
+
+* Bug fixes
+
+* Specs passing in Ruby 1.8.7, 1.9.2.
+
 ## Ginjo-Rfm 2.1.0
 
 * Removed `:include_portals` query option in favor of `:ignore_portals`.
