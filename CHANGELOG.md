@@ -1,5 +1,10 @@
 # Changelog
 
+## Ginjo-Rfm 2.1.2
+
+* Fixed config.rb so that :file_path (to user-defined yml config file) can be specified as a single path string
+	or as an array of path strings.
+
 ## Ginjo-Rfm 2.1.1
 
 * Bug fixes
@@ -21,11 +26,9 @@
 * Added grammar translation layer between xml parser and Rfm, allowing all supported xml grammars to be used with Rfm.
 	This will also streamline changes/additions to Filemaker's xml grammar(s).
 	
-* Added ability to manually import fmprestulset and fmpxmlresult data (from file, variable, etc.).
-
 * Fixed case statement for ruby 1.9
  
-* Configuration `:use` option is now works for all Rfm objects that respond to `config`.
+* Configuration `:use` option now works for all Rfm objects that respond to `config`.
 
 ## Ginjo-Rfm 2.0.2
 

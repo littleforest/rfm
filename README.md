@@ -15,19 +15,35 @@ Rfm is a Ruby-Filemaker adapter, a Ruby gem that allows scripts and applications
 
 ## New in version  2.1
 
-ginjo-rfm 2.1 is a combination of new features, bug fixes, and a lot of code refactoring.
+Ginjo-rfm 2.1 has a combination of new features, bug fixes, and a lot of code refactoring.
 Most api calls remain the same, but a good deal of underlying code has been transformed
-to support, and take advantage of, the progress of technologies surrounding Ruby.
+to support and take advantage of the progress of technologies surrounding Ruby.
 
 * Portals are now included by default.
 	Removed `:include_portals` query option in favor of `:ignore_portals`.
 	Added `:max_portal_rows` query option.
 * Added field-remapping framework to allow model fields with different names than Filemaker fields.
+
+        class User < Rfm::Base
+          config :field_mapping => {
+            #<filemaker-field-name>  =>  <rfm-field-name>
+            'userName'               => 'login',
+            'First Name'             => 'first_name',
+            'Last Name'              => 'last_name',
+            'IDperson'               => 'person_id'     
+          }
+        end
+
+        User.find(:login=>'bill')    # => [{'login' => 'bill', 'first_name' => 'Bill', ...}, ...]
+
 * Fixed date/time/timestamp translations when writing data to Filemaker.
 * Detached new Server objects from Factory.servers hash, so wont reuse or stack-up servers.
 * Added grammar translation layer between xml parser and Rfm, allowing all supported xml grammars to be used with Rfm.
   This will also streamline changes/additions to Filemaker's xml grammar(s).
 * Added ability to manually import fmpresultset and fmpxmlresult data (from file, variable, etc.).
+
+        Rfm::Resultset.load_data(file_or_string).
+
 * Compatibility fixes for ruby 1.9.
 * Configuration `:use` option now works for all Rfm objects that respond to `config`.
 
@@ -179,7 +195,7 @@ Get the total count of all records in the table
 
 	  MyModel.total_count
 
-Get the portal names (table-occurence names) on the current layout
+Get the portal names (table-occurrence names) on the current layout
 
 	  MyModel.portal_names
 
@@ -689,26 +705,30 @@ To delete the record whose recid is 200:
 
 	   my_layout.delete(200)
 
-All of these methods return an Rfm::Result::ResultSet object (see below), and every one of them takes an optional parameter (the very last one) with additional options. For example, to find just a page full of records, you can do this:
+All of these methods return an Rfm::Resultset object (see below), and every one of them takes an optional parameter (the very last one) with additional options. For example, to find just a page full of records, you can do this:
 
 	   my_layout.find({:state => "AZ"}, {:max_records => 10, :skip_records => 100})
 
-For a complete list of the available options, see the "expand_options" method in the Rfm::Server object in the file named rfm_command.rb.
+For a complete list of the available options, see the "expand_options" method in the Rfm::Server object in the file named server.rb.
 
-Finally, if filemaker returns an error when executing any of these methods, an error will be raised in your ruby script. There is one exception to this, though. If a find results in no records being found (FileMaker error # 401) I just ignore it and return you a ResultSet with zero records in it. If you prefer an error in this case, add :raise_on_401 => true to the options you pass the Rfm::Server when you create it.
+Finally, if filemaker returns an error when executing any of these methods, an error will be raised in your ruby script. There is one exception to this, though. If a find results in no records being found (FileMaker error # 401) I just ignore it and return you a Resultset with zero records in it. If you prefer an error in this case, add :raise_on_401 => true to the options you pass the Rfm::Server when you create it.
 
 
-### ResultSet and Record Objects
+### Resultset and Record Objects
 
-Any method on the Layout object that returns data will return a ResultSet object. Rfm::Result::ResultSet is a subclass of Array, so first and foremost, you can use it like any other array:
+Any method on the Layout object that returns data will return a Resultset object. Rfm::Resultset is a subclass of Array, so first and foremost, you can use it like any other array:
 
 	   my_result = my_layout.any
 	   my_result.size  # returns '1'
-	   my_result[0]    # returns the first record (an Rfm::Result::Record object)
+	   my_result[0]    # returns the first record (an Rfm::Record object)
 
-The ResultSet object also tells you information about the fields and portals in the result. ResultSet#fields and ResultSet#portals are both standard ruby hashes, with strings for keys. The fields hash has Rfm::Result::Field objects for values. The portals hash has another hash for its values. This nested hash is the fields on the portal. This would print out all the field names:
+The Resultset object also tells you information about the fields and portals in the result. Resultset#field\_meta and Resultset#portal\_meta are both standard ruby hashes, with strings for keys. The fields hash has Rfm::Metadata::Field objects for values. The portals hash has another hash for its values. This nested hash is the fields on the portal. This would print out all the field names:
 
-	   my_result.fields.each { |name, field| puts name }
+	   my_result.field_meta.each { |name, field| puts name }
+	
+Or, as a convenience, you can do this:
+
+    my_result.field_names
 
 This would print out the tables each portal on the layout is associated with. Below each table name, and indented, it will print the names of all the fields on each portal.
 
@@ -717,7 +737,11 @@ This would print out the tables each portal on the layout is associated with. Be
 	     fields.each { |name, field| puts "\t#{name}"}
 	   }
 
-But most importantly, the ResultSet contains record objects. Rfm::Result::Record is a subclass of Hash, so it can be used in many standard ways. This code would print the value in the 'first_name' field in the first record of the ResultSet:
+Also as a convenience, you can do this:
+
+    my_result.portal_names
+
+But most importantly, the Resultset contains record objects. Rfm::Record is a subclass of Hash, so it can be used in many standard ways. This code would print the value in the 'first_name' field in the first record of the Resultset:
 
 	   my_record = my_result[0]
 	   puts my_record["first_name"]
@@ -726,7 +750,7 @@ As a convenience, if your field names are valid ruby method names (ie, they don'
 
 	   puts my_record.first_name
 
-Since ResultSets are arrays and Records are hashes, you can take advantage of Ruby's wonderful expressiveness. For example, to get a comma-separated list of the full names of all the people in California, you could do this:
+Since Resultsets are arrays and Records are hashes, you can take advantage of Ruby's wonderful expressiveness. For example, to get a comma-separated list of the full names of all the people in California, you could do this:
 
 	   my_layout.find(:state => 'CA').collect {|rec| "#{rec.first_name} #{rec.last_name}"}.join(", ")
 
@@ -746,7 +770,7 @@ If you want to detect concurrent modification, you can do this instead:
 
 This version will refuse to update the database and raise an error if the record was modified after it was loaded but before it was saved.
 
-Record objects also have portals. While the portals in a ResultSet tell you about the tables and fields the portals show, the portals in a Record have the actual data. For example, if an Order record has Line Item records, you could do this:
+Record objects also have portals. While the portals in a Resultset tell you about the tables and fields the portals show, the portals in a Record have the actual data. For example, if an Order record has Line Item records, you could do this:
 
 	   my_order = order_layout.any[0]  # the [0] is important!
 	   my_lines = my_order.portals["Line Items"]
