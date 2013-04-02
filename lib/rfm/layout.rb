@@ -398,10 +398,8 @@ module Rfm
       
       # process valuelists
       vlists = [doc['FMPXMLLAYOUT']['VALUELISTS']['VALUELIST']].flatten
-      puts vlists.to_yaml #REMOVE#
       if !vlists.nil?    #root.elements['VALUELISTS'].size > 0
         vlists.each {|valuelist|
-        	puts valuelist.to_yaml #REMOVE#
           name = valuelist['NAME']
           @value_lists[name] = [valuelist['VALUE']].flatten.collect{|value|
           	Rfm::Metadata::ValueListItem.new(value['__content__'], value['DISPLAY'], name)

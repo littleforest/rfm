@@ -1,5 +1,9 @@
 # Changelog
 
+## Ginjo-Rfm 2.1.3
+
+* Fixed bug when loading layout metadata where value lists or field controls with only 1 item would throw an error.
+
 ## Ginjo-Rfm 2.1.2
 
 * Fixed config.rb so that :file_path (to user-defined yml config file) can be specified as a single path string
