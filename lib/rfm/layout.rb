@@ -397,11 +397,13 @@ module Rfm
       raise Rfm::Error::FileMakerError.getError(error) if error != 0
       
       # process valuelists
-      vlists = doc['FMPXMLLAYOUT']['VALUELISTS']['VALUELIST']
+      vlists = [doc['FMPXMLLAYOUT']['VALUELISTS']['VALUELIST']].flatten
+      puts vlists.to_yaml #REMOVE#
       if !vlists.nil?    #root.elements['VALUELISTS'].size > 0
         vlists.each {|valuelist|
+        	puts valuelist.to_yaml #REMOVE#
           name = valuelist['NAME']
-          @value_lists[name] = valuelist['VALUE'].collect{|value|
+          @value_lists[name] = [valuelist['VALUE']].flatten.collect{|value|
           	Rfm::Metadata::ValueListItem.new(value['__content__'], value['DISPLAY'], name)
           } rescue []
         }
@@ -409,7 +411,7 @@ module Rfm
       end
 
       # process field controls
-      doc['FMPXMLLAYOUT']['LAYOUT']['FIELD'].each {|field|
+      [doc['FMPXMLLAYOUT']['LAYOUT']['FIELD']].flatten.each {|field|
         name = field_mapping[field['NAME']] || field['NAME']
         style = field['STYLE']
         type = style['TYPE']
