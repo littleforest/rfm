@@ -397,8 +397,9 @@ module Rfm
       raise Rfm::Error::FileMakerError.getError(error) if error != 0
       
       # process valuelists
-      vlists = [doc['FMPXMLLAYOUT']['VALUELISTS']['VALUELIST']].flatten
-      if !vlists.nil?    #root.elements['VALUELISTS'].size > 0
+      vlists = [doc['FMPXMLLAYOUT']['VALUELISTS']['VALUELIST']].flatten.compact
+      puts vlists.to_yaml
+      if !vlists.blank?    #root.elements['VALUELISTS'].size > 0
         vlists.each {|valuelist|
           name = valuelist['NAME']
           @value_lists[name] = [valuelist['VALUE']].flatten.collect{|value|
@@ -409,12 +410,12 @@ module Rfm
       end
 
       # process field controls
-      [doc['FMPXMLLAYOUT']['LAYOUT']['FIELD']].flatten.each {|field|
+      [doc['FMPXMLLAYOUT']['LAYOUT']['FIELD']].flatten.compact.each {|field|
         name = field_mapping[field['NAME']] || field['NAME']
         style = field['STYLE']
         type = style['TYPE']
         value_list_name = style['VALUELIST']
-        value_list = @value_lists[value_list_name] if value_list_name != ''
+        value_list = @value_lists[value_list_name] if !value_list_name.blank?
         field_control = Rfm::Metadata::FieldControl.new(name, type, value_list_name, value_list)
         existing = @field_controls[name]
         if existing
