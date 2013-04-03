@@ -398,7 +398,6 @@ module Rfm
       
       # process valuelists
       vlists = [doc['FMPXMLLAYOUT']['VALUELISTS']['VALUELIST']].flatten.compact
-      puts vlists.to_yaml
       if !vlists.blank?    #root.elements['VALUELISTS'].size > 0
         vlists.each {|valuelist|
           name = valuelist['NAME']
