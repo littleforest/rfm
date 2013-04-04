@@ -1,5 +1,9 @@
 # Changelog
 
+## Ginjo-Rfm 2.1.4
+
+* Fixed bug where nil value list would raise exception.
+
 ## Ginjo-Rfm 2.1.3
 
 * Fixed bug when loading layout metadata where value lists or field controls with only 1 item would throw an error.
