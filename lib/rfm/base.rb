@@ -169,7 +169,8 @@ module Rfm
       include ActiveModel::Validations
       include ActiveModel::Serialization
       extend ActiveModel::Callbacks
-      define_model_callbacks(:create, :update, :destroy, :validate)
+      include ActiveModel::Validations::Callbacks
+      define_model_callbacks(:create, :update, :destroy)
     rescue LoadError, StandardError
     	def run_callbacks(*args)
     		yield
@@ -332,8 +333,7 @@ module Rfm
     
     # Save record modifications to database (with callbacks & validations). If record cannot be saved will raise error.
     def save!
-      #return unless @mods.size > 0
-      raise "Record Invalid" unless valid? rescue nil
+      #raise "Record Invalid" unless valid? rescue nil
       if @record_id
         self.update
       else
@@ -345,7 +345,7 @@ module Rfm
     def save
       save!
     rescue
-      (self.errors[:base] rescue []) << $!
+      # (self.errors[:base] rescue []) << $!
       return nil
     end
 	  
@@ -400,7 +400,7 @@ module Rfm
     end
     
     def create
-      #return unless @mods.size > 0
+      raise "Record not valid" unless valid?
       run_callbacks :create do
         return unless @mods.size > 0
   	    merge_rfm_result self.class.create_from_new(@mods)
@@ -409,8 +409,8 @@ module Rfm
   	end
   	
     def update(mod_id=nil)
-      #return unless @mods.size > 0 and record_id
-      return false unless record_id
+      raise "Record not valid" unless valid?
+      return false unless record_id 
   	  run_callbacks :update do
   	    return unless @mods.size > 0
   	    unless mod_id
