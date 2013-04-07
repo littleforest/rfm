@@ -49,15 +49,16 @@ desc "benchmark XmlMini with available parsers"
 task :benchmark do
 	require 'benchmark'
 	require 'yaml'
-	@records = File.read('spec/data/resultset.xml')
-	@layout = File.read('spec/data/layout.xml')
+	@records = File.read('local_testing/resultset2.xml')
+	#@layout = File.read('spec/data/layout.xml')
 	Benchmark.bm do |b|
-		[:oxsax, :libxml, :libxmlsax, :nokogirisax, :nokogiri, :hpricot, :rexml, :rexmlsax].each do |backend|
+		# :ox throws error in ruby 1.9
+		[:libxml, :libxmlsax, :nokogirisax, :nokogiri, :hpricot, :rexml, :rexmlsax].each do |backend|
 			Rfm.backend = backend
 			b.report("#{Rfm::XmlParser.backend}\n") do
-				50.times do
-					Rfm::XmlParser.new(@records)
-					Rfm::XmlParser.new(@layout)
+				5.times do
+					Rfm.load_data(@records)
+					#Rfm::XmlParser.new(@layout)
 				end
 			end
 		end
