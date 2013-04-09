@@ -1,5 +1,9 @@
 # Changelog
 
+## Ginjo-Rfm 2.1.5
+
+* Fixed bug preventing validation callbacks from running.
+
 ## Ginjo-Rfm 2.1.4
 
 * Fixed bug where nil value list would raise exception.
