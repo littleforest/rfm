@@ -3,6 +3,7 @@
 ## Ginjo-Rfm 2.1.6
 
 * Fixed type in Rfm::Record#[]=
+* Fixed bug where valid? was called on models without ActiveModel::Validations being loaded.
 
 ## Ginjo-Rfm 2.1.5
 
