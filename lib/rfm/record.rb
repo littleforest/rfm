@@ -222,24 +222,24 @@ module Rfm
       super
     end
     
-    def []=(key, value)
+    def []=(key, val)
       key_string = key.to_s.downcase
       return super unless @loaded # is this needed?
       raise Rfm::ParameterError, "You attempted to modify a field (#{key_string}) that does not exist in the current Filemaker layout." unless self.key?(key_string)
-      # @mods[key_string] = value
+      # @mods[key_string] = val
       # TODO: This needs cleaning up.
       # TODO: can we get field_type from record instead?
-			@mods[key_string] = if [Date, Time, DateTime].member?(value.class)
+			@mods[key_string] = if [Date, Time, DateTime].member?(val.class)
 				field_type = layout.field_meta[key_string.to_sym].result
 				case field_type
 					when 'time'; val.strftime(layout.time_format)
 					when 'date'; val.strftime(layout.date_format)
 					when 'timestamp'; val.strftime(layout.timestamp_format)
-				else value
+				else val
 				end
-			else value
+			else val
 			end
-      super(key, value)
+      super(key, val)
     end
 		#
 		# 		alias_method :old_setter, '[]='

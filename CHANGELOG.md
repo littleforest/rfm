@@ -1,5 +1,9 @@
 # Changelog
 
+## Ginjo-Rfm 2.1.6
+
+* Fixed type in Rfm::Record#[]=
+
 ## Ginjo-Rfm 2.1.5
 
 * Fixed bug preventing validation callbacks from running.
