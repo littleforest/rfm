@@ -22,7 +22,7 @@ module Rfm
   	# Returns self as ['-fmpaction', {:hash=>'of', :key=>'values'}, {:options=>'hash'}]
   	def initialize(query, options={})
   		@options = options
-  		@field_mapping = options.delete(:field_mapping)
+  		@field_mapping = options.delete(:field_mapping) || {}
   		@original_input = query
 			@key_values = {}
 			@key_arrays = []
@@ -77,7 +77,7 @@ module Rfm
 				query_tag = []
 				val = val.rfm_force_array
 				val.each do |v|
-					@key_values["-q#{key_counter}"] = field_mapping.invert[key] || key
+					@key_values["-q#{key_counter}"] = field_mapping[key] || key
 					@key_values["-q#{key_counter}.value"] = v
 					query_tag << "q#{key_counter}"
 					@key_counter += 1

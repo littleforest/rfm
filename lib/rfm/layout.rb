@@ -210,7 +210,7 @@ module Rfm
 	    #
 	    def find(find_criteria, options = {})
 	    	#puts "layout.find-#{self.object_id}"
-	    	options.merge!({:field_mapping => field_mapping}) if field_mapping
+	    	options.merge!({:field_mapping => field_mapping.invert}) if field_mapping
 				get_records(*Rfm::CompoundQuery.new(find_criteria, options))
 	    end
 	    
@@ -276,6 +276,7 @@ module Rfm
 	      # Apply mapping from :field_mapping, to send correct params in URL.
 	      prms = params.merge(extra_params)
 	      map = field_mapping.invert
+	      options.merge!({:field_mapping => map}) if map
 	      # TODO: Make this part handle string AND symbol keys.
 	      #map.each{|k,v| prms[k]=prms.delete(v) if prms[v]}
 	      prms.dup.each_key{|k| prms[map[k.to_s]]=prms.delete(k) if map[k.to_s]}
