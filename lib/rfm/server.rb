@@ -419,7 +419,7 @@ module Rfm
           when :modification_id
             result['-modid'] = value
           else
-            raise Rfm::ParameterError.new("Invalid option: #{key} (are you using a string instead of a symbol?)")
+            raise Rfm::ParameterError.new("Invalid option: #{key}")
           end
         end
         return result
