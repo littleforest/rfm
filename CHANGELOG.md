@@ -1,5 +1,10 @@
 # Changelog
 
+## Ginjo-Rfm 2.1.7
+
+* Added field_mapping awareness to :sort_field query option.
+* Relaxed requirement that query option keys be symbols - can now be strings.
+
 ## Ginjo-Rfm 2.1.6
 
 * Fixed typo in Rfm::Record#[]=

@@ -22,7 +22,7 @@ to support and take advantage of the progress of technologies surrounding Ruby.
 * Portals are now included by default.
 	Removed `:include_portals` query option in favor of `:ignore_portals`.
 	Added `:max_portal_rows` query option.
-* Added field-remapping framework to allow model fields with different names than Filemaker fields.
+* Added field-mapping framework to allow model fields with different names than Filemaker fields.
 
         class User < Rfm::Base
           config :field_mapping => {
