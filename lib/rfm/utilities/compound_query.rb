@@ -56,13 +56,19 @@ module Rfm
 	  		self.push '-findquery'
 	  		self.push @key_values.merge('-query'=>@key_map_string)
 	  	when 'standard'
+        puts "in standard"
+        puts "original input = #{@original_input}"
 	  		self.push '-find'
 	  		self.push @original_input
 	  	when 'recid'
+        puts "in recid"
+        puts "original input = #{@original_input}"
 	  		self.push '-find'
 	  		self.push '-recid' => @original_input.to_s
 	  	end
 	  	self.push @options
+      puts "inspecting self"
+      puts self.inspect
 	  	self
   	end
 
