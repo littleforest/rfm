@@ -64,7 +64,7 @@ module Rfm
         puts "in recid"
         puts "original input = #{@original_input}"
 	  		self.push '-find'
-	  		self.push '-recid' => @original_input.to_s
+	  		self.push 'recid' => @original_input.to_s
 	  	end
 	  	self.push @options
       puts "inspecting self"
