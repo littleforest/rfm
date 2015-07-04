@@ -63,6 +63,8 @@ module Rfm
     def connect(action=@action, params=@params, request_options = @request_options, account_name=state[:account_name], password=state[:password])
     	grammar_option = request_options.delete(:grammar)
       post = params.merge(expand_options(request_options)).merge({action => ''})
+      puts post
+      puts post.inspect
       grammar = select_grammar(post, :grammar=>grammar_option)
       http_fetch(host_name, port, "/fmi/xml/#{grammar}.xml", account_name, password, post)
     end
